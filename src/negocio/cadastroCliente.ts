@@ -1,7 +1,13 @@
 import Entrada from "../io/entrada"
 import Cliente from "../modelo/cliente"
 import CPF from "../modelo/cpf"
+import RG from "../modelo/rg"
 import Cadastro from "./cadastro"
+
+// TODO
+// Cadastro de RG
+// Cadastro de data do cadastro
+// Cadastro de telefones
 
 export default class CadastroCliente extends Cadastro {
     private clientes: Array<Cliente>
@@ -15,6 +21,8 @@ export default class CadastroCliente extends Cadastro {
         console.log(`\nInício do cadastro do cliente`);
         let nome = this.entrada.receberTexto(`Por favor informe o nome do cliente: `)
         let nomeSocial = this.entrada.receberTexto(`Por favor informe o nome social do cliente: `)
+        
+        // Cadastro do CPF
         let valor = this.entrada.receberTexto(`Por favor informe o número do cpf: `);
         let data = this.entrada.receberTexto(`Por favor informe a data de emissão do cpf, no padrão dd/mm/yyyy: `);
         let partesData = data.split('/')
@@ -23,7 +31,33 @@ export default class CadastroCliente extends Cadastro {
         let dia = new Number(partesData[0].valueOf()).valueOf()
         let dataEmissao = new Date(ano, mes, dia)
         let cpf = new CPF(valor, dataEmissao);
-        let cliente = new Cliente(nome, nomeSocial, cpf);
+
+        // Cadastro dos RG's
+        let rgCount = this.entrada.receberNumero("Por favor, informe quantos RG's você quer cadastrar: ")
+        let rgArray = []
+        if(rgCount <= 0){
+            console.log('Prosseguindo...')
+        }
+        else{
+            for(let i = 1 ; i <= rgCount ; i++){
+                console.log(`Cadastro do ${i}º RG`)
+                let valor = this.entrada.receberTexto('Informe o número do rg: ')
+                let data = this.entrada.receberTexto(`Informe a data de emissão do rg, no padrão dd/mm/yyyy: `);
+                let partesData = data.split('/')
+                let ano = new Number(partesData[2].valueOf()).valueOf()
+                let mes = new Number(partesData[1].valueOf()).valueOf()
+                let dia = new Number(partesData[0].valueOf()).valueOf()
+                let dataEmissao = new Date(ano, mes, dia)
+                let rg = new RG(valor, dataEmissao)
+
+                rgArray.push(rg)
+                
+            }
+        }
+        
+        
+        let cliente = new Cliente(nome, nomeSocial, cpf, rgArray);
+        
         this.clientes.push(cliente)
         console.log(`\nCadastro concluído :)\n`);
     }
