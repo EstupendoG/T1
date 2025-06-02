@@ -2,6 +2,7 @@ import Entrada from "../io/entrada"
 import Cliente from "../modelo/cliente"
 import CPF from "../modelo/cpf"
 import RG from "../modelo/rg"
+import Telefone from "../modelo/telefone"
 import Cadastro from "./cadastro"
 
 // TODO
@@ -54,9 +55,27 @@ export default class CadastroCliente extends Cadastro {
                 
             }
         }
+
+        // Cadastro de Telefones
+        let phoneCount = this.entrada.receberNumero("Por favor, informe quantos Telefones você quer cadastrar: ")
+        let phoneArray = []
+        if(phoneCount <= 0){
+            console.log('Prosseguindo...')
+        }
+        else{
+            for(let i = 1 ; i <= phoneCount ; i++){
+                console.log(`Cadastro do ${i}º Telefone`)
+                let ddd = this.entrada.receberTexto('DDD: ')
+                let numero = this.entrada.receberTexto(`Número: `);
+                let telefone = new Telefone(ddd, numero)
+
+                phoneArray.push(telefone)
+                
+            }
+        }
         
         
-        let cliente = new Cliente(nome, nomeSocial, cpf, rgArray);
+        let cliente = new Cliente(nome, nomeSocial, cpf, rgArray , phoneArray);
         
         this.clientes.push(cliente)
         console.log(`\nCadastro concluído :)\n`);
