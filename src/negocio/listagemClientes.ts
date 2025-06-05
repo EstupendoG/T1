@@ -8,20 +8,20 @@ export default class ListagemClientes extends Listagem {
         this.clientes = clientes
     }
     public listar(): void {
-        console.log(`\nLista de todos os clientes:`);
+        console.log(`\n📋 Lista de todos os clientes:`);
         this.clientes.forEach(cliente => {
-            console.log(`Nome: ` + cliente.nome);
-            console.log(`Nome social: ` + cliente.nomeSocial);
-            console.log(`CPF: ` + cliente.getCpf.getValor);
+            console.log(`👤 Nome: ` + cliente.nome);
+            console.log(`👤 Nome social: ` + cliente.nomeSocial);
+            console.log(`🪪 CPF: ` + cliente.getCpf.getValor);
             let rgAmount = 0
             cliente.getRgs.forEach(rg => {
                 rgAmount++
-                console.log(`${rgAmount}º RG: ${rg.getValor}`)
+                console.log(`📇 ${rgAmount}º RG: ${rg.getValor}`)
             })
             let phoneAmount = 0
             cliente.getTelefones.forEach(phone => {
                 phoneAmount++
-                console.log(`${phoneAmount}º Telefone: (${phone.getDdd}) ${phone.getNumero}`)
+                console.log(`📞 ${phoneAmount}º Telefone: (${phone.getDdd}) ${phone.getNumero}`)
             })
 
             console.log(`--------------------------------------`);
