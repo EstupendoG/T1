@@ -1,12 +1,7 @@
-import { deflate } from "zlib";
 import Entrada from "../io/entrada";
 import Empresa from "../modelo/empresa";
 import CadastroCliente from "../negocio/cliente/cadastroCliente";
-import CadastroProduto from "../negocio/produto/cadastroProduto";
-import CadastroServico from "../negocio/servico/cadastroServico";
 import ListagemClientes from "../negocio/cliente/listagemClientes";
-import ListagemProduto from "../negocio/produto/listagemProduto";
-import ListagemServicos from "../negocio/servico/listagemServico";
 
 export default class mainCliente {
     public options(){
@@ -14,7 +9,7 @@ export default class mainCliente {
         let execucao = true
 
         while (execucao) {
-            console.log(`\n👤 CLIENTE`)
+            console.log(`\n👤 CLIENTES`)
             console.log(`☰ Opções:`);
             console.log(`--------------------------------------`);
             console.log(`1 - Cadastrar cliente`);

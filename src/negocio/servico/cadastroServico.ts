@@ -1,6 +1,6 @@
+import Entrada from "../../io/entrada";
 import Cadastro from "../cadastro";
 import Servico from "../../modelo/servico";
-import Entrada from "../../io/entrada";
 
 export default class CadastroServico extends Cadastro{
     private servicos: Array<Servico>
@@ -11,13 +11,19 @@ export default class CadastroServico extends Cadastro{
         this.entrada = new Entrada()
     }
 
-    public cadastrar() : void{
-        console.log(`\nInício do cadastro do serviço`);
+    public cadastrar(): void {
+        console.log(`\n📝 Início do cadastro do serviço`);
         let nome = this.entrada.receberTexto('Por favor informe o nome do serviço: ')
+        
+        let id = 1
+        if(this.servicos.length > 0){
+            let maiorId = Math.max(...this.servicos.map((x) => x.id))
+            id = maiorId + 1
+        }
 
-        let servico = new Servico(nome)
+        let servico = new Servico(id,nome)
 
         this.servicos.push(servico)
-        console.log(`\nCadastro concluído :)\n`);
+        console.log(`\n✅ Cadastro concluído :)`);
     }
 }

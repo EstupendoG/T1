@@ -9,12 +9,13 @@ export default class ListagemServicos extends Listagem{
     }
 
     public listar(): void {
-        console.log('Lista de todos os serviços: ')
+        console.log(`\n📋 Lista de todos os serviços:`);
+        console.log(`--------------------------------------`);  
         this.servicos.forEach(servico => {
-            console.log(`Nome: ${servico.nome}`)
+            console.log(`🛠️ ID: ${servico.getId}`)
+            console.log(`🛠️ Nome: ${servico.getNome}`)
             console.log(`--------------------------------------`);
         });
-        console.log('\n')
     }
 
 }

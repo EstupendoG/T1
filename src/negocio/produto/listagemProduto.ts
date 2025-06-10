@@ -9,12 +9,13 @@ export default class ListagemProduto extends Listagem {
     }
 
     public listar(): void{
-        console.log('Lista de todos os produtos: ')
+        console.log('\n📋 Lista de todos os produtos: ')
+        console.log(`--------------------------------------`);
         this.produtos.forEach(produto => {
-            console.log(`Nome: ${produto.nome}`)
+            console.log(`📦 ID: ${produto.getId}`)
+            console.log(`📦 Nome: ${produto.getNome}`)
             console.log(`--------------------------------------`);
         })
-        console.log('\n')
     }
 
 }

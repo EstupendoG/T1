@@ -6,9 +6,7 @@ import Telefone from "../../modelo/telefone"
 import Cadastro from "../cadastro"
 
 // TODO
-// Cadastro de RG
 // Cadastro de data do cadastro
-// Cadastro de telefones
 
 export default class CadastroCliente extends Cadastro {
     private clientes: Array<Cliente>

@@ -26,6 +26,15 @@ export default class Cliente {
         this.servicosConsumidos = []
         this.pets = []
     }
+
+    public get getNome(): string {
+        return this.nome
+    }
+
+    public get getNomeSocial(): string {
+        return this.nomeSocial
+    }
+
     public get getCpf(): CPF {
         return this.cpf
     }
