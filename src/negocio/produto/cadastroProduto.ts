@@ -1,6 +1,6 @@
-import Entrada from "../io/entrada"
-import Cadastro from "./cadastro"
-import Produto from "../modelo/produto"
+import Entrada from "../../io/entrada"
+import Cadastro from "./../cadastro"
+import Produto from "../../modelo/produto"
 
 export default class CadastroProduto extends Cadastro {
     private produtos: Array<Produto>

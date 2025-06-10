@@ -1,12 +1,12 @@
 import { deflate } from "zlib";
 import Entrada from "../io/entrada";
 import Empresa from "../modelo/empresa";
-import CadastroCliente from "../negocio/cadastroCliente";
-import CadastroProduto from "../negocio/cadastroProduto";
-import CadastroServico from "../negocio/cadastroServico";
-import ListagemClientes from "../negocio/listagemClientes";
-import ListagemProduto from "../negocio/listagemProduto";
-import ListagemServicos from "../negocio/listagemServico";
+import CadastroCliente from "../negocio/cliente/cadastroCliente";
+import CadastroProduto from "../negocio/produto/cadastroProduto";
+import CadastroServico from "../negocio/servico/cadastroServico";
+import ListagemClientes from "../negocio/cliente/listagemClientes";
+import ListagemProduto from "../negocio/produto/listagemProduto";
+import ListagemServicos from "../negocio/servico/listagemServico";
 
 export default class mainCliente {
     public options(){

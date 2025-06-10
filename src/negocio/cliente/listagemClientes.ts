@@ -1,5 +1,5 @@
-import Cliente from "../modelo/cliente";
-import Listagem from "./listagem";
+import Cliente from "../../modelo/cliente";
+import Listagem from "../listagem";
 
 export default class ListagemClientes extends Listagem {
     private clientes: Array<Cliente>
@@ -9,6 +9,7 @@ export default class ListagemClientes extends Listagem {
     }
     public listar(): void {
         console.log(`\n📋 Lista de todos os clientes:`);
+        console.log(`--------------------------------------`);
         this.clientes.forEach(cliente => {
             console.log(`👤 Nome: ` + cliente.nome);
             console.log(`👤 Nome social: ` + cliente.nomeSocial);
@@ -26,6 +27,5 @@ export default class ListagemClientes extends Listagem {
 
             console.log(`--------------------------------------`);
         });
-        console.log(`\n`);
     }
 }
