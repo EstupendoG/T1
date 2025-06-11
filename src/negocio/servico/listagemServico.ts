@@ -9,9 +9,15 @@ export default class ListagemServicos extends Listagem{
     }
 
     public listar(): void {
-        console.log(`\n📋 Lista de todos os serviços:`);
-        
+        console.log(`\n📋 Listagem dos Serviços:`);
         console.log(`--------------------------------------`);  
+        
+        if(this.servicos.length === 0){
+            console.log("\n❌ Não há serviços a serem listados!")
+            console.log("⏳ Retornando...")
+            return
+        }
+
         this.servicos.forEach(servico => {
             console.log(`🛠️ ID: ${servico.getId}`)
             console.log(`🛠️ Nome: ${servico.getNome}`)

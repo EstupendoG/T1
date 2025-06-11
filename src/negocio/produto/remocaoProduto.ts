@@ -1,13 +1,13 @@
 import Entrada from "../../io/entrada";
-import Servico from "../../modelo/servico";
+import Produto from "../../modelo/produto";
 import Remocao from "../remocao";
 
-export default class RemocaoServico extends Remocao{
-    private servicos: Array<Servico>
+export default class RemocaoProduto extends Remocao{
+    private produtos: Array<Produto>
     private entrada: Entrada
-    constructor(servicos: Array<Servico>){
+    constructor(produtos: Array<Produto>){
         super()
-        this.servicos = servicos
+        this.produtos = produtos
         this.entrada = new Entrada()
     }
 
@@ -15,22 +15,22 @@ export default class RemocaoServico extends Remocao{
         console.log(`\n🗑️ Remoção de Serviço`);
         console.log(`--------------------------------------`);  
 
-        if(this.servicos.length === 0){
-            console.log("❌ Não há serviços a serem removidos!")
+        if(this.produtos.length === 0){
+            console.log("❌ Não há produtos a serem removidos!")
             console.log("⏳ Retornando...")
             return
         }
 
-        let id = this.entrada.receberNumero("✎  Por favor informe o id do serviço a ser removido: ")
+        let id = this.entrada.receberNumero("✎  Por favor informe o id do produto a ser removido: ")
         
-        let listaIds = this.servicos.map((x) => x.getId)
+        let listaIds = this.produtos.map((x) => x.getId)
         if(!listaIds.includes(id)){
-            console.log("❌ Nenhum serviço foi atribuído a esse ID")
+            console.log("❌ Nenhum produto foi atribuído a esse ID")
             console.log("⏳ Retornando...")
             return
         }
 
-        let confirmacao = (this.entrada.receberTexto(`⚠️ Você tem certeza que deseja remover esse serviço? (S/N): `)).toLowerCase()
+        let confirmacao = (this.entrada.receberTexto(`⚠️ Você tem certeza que deseja remover esse produto? (S/N): `)).toLowerCase()
 
         while(confirmacao != "s" && confirmacao != "n"){
             console.log("❌ Valor Inválido!")
@@ -42,11 +42,11 @@ export default class RemocaoServico extends Remocao{
             return
         }
 
-        console.log(`\n⏳ Removendo serviço...`)
-        for(let servico of this.servicos){
-            if(servico.getId === id){
-                let i = this.servicos.indexOf(servico)
-                this.servicos.splice(i,1)
+        console.log(`\n⏳ Removendo produto...`)
+        for(let produto of this.produtos){
+            if(produto.getId === id){
+                let i = this.produtos.indexOf(produto)
+                this.produtos.splice(i,1)
             }
         }
         

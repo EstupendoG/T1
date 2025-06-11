@@ -56,4 +56,39 @@ export default class Cliente {
     public get getPets(): Array<Pet>{
         return this.pets
     }
+
+
+
+    public set setNome(nome: string) {
+        this.nome = nome
+    }
+
+    public set setNomeSocial(nomeSocial: string) {
+        this.nomeSocial = nomeSocial
+    }
+
+    public set setCpf(cpf: CPF) {
+        this.cpf = cpf
+    }
+
+    public set setRgs(rgs: Array<RG>) {
+        this.rgs = rgs
+    }
+
+    public set setDataCadastro(data: Date) {
+        this.dataCadastro = data
+    }
+
+    public set setTelefones(telefones: Array<Telefone>) {
+        this.telefones = telefones
+    }
+
+    public set setProdutosConsumidos(produtos: Array<Produto>) {
+        this.produtosConsumidos = produtos
+    }
+
+    public set setServicosConsumidos(servicos: Array<Servico>) {
+        this.servicosConsumidos = servicos
+    }
+
 }

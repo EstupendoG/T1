@@ -2,6 +2,7 @@ import Entrada from "../io/entrada";
 import Empresa from "../modelo/empresa";
 import CadastroServico from "../negocio/servico/cadastroServico";
 import ListagemServicos from "../negocio/servico/listagemServico";
+import AtualizacaoServico from "../negocio/servico/atualizacaoServicos";
 import RemocaoServico from "../negocio/servico/remocaoServico";
 
 export default class mainServico {
@@ -31,6 +32,10 @@ export default class mainServico {
                 case 2:
                     let listagem = new ListagemServicos(empresa.getServicos)
                     listagem.listar()
+                    break;
+                case 3:
+                    let atualizacao = new AtualizacaoServico(empresa.getServicos)
+                    atualizacao.atualizar()
                     break;
                 case 4:
                     let remocao = new RemocaoServico(empresa.getServicos)

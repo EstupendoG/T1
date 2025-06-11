@@ -12,7 +12,8 @@ export default class CadastroServico extends Cadastro{
     }
 
     public cadastrar(): void {
-        console.log(`\n📝 Início do cadastro do serviço`);
+        console.log(`\n📝 Cadastro de Serviço`);
+        console.log(`--------------------------------------`);  
         let nome = this.entrada.receberTexto('✎  Por favor informe o nome do serviço: ')
         
         let id = 1
