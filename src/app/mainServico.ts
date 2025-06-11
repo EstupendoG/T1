@@ -2,6 +2,7 @@ import Entrada from "../io/entrada";
 import Empresa from "../modelo/empresa";
 import CadastroServico from "../negocio/servico/cadastroServico";
 import ListagemServicos from "../negocio/servico/listagemServico";
+import RemocaoServico from "../negocio/servico/remocaoServico";
 
 export default class mainServico {
     public options(){
@@ -24,12 +25,16 @@ export default class mainServico {
 
             switch (opcao) {
                 case 1:
-                    let cadastroCliente = new CadastroServico(empresa.getServicos)
-                    cadastroCliente.cadastrar()
+                    let cadastro = new CadastroServico(empresa.getServicos)
+                    cadastro.cadastrar()
                     break;
                 case 2:
-                    let listagemCliente = new ListagemServicos(empresa.getServicos)
-                    listagemCliente.listar()
+                    let listagem = new ListagemServicos(empresa.getServicos)
+                    listagem.listar()
+                    break;
+                case 4:
+                    let remocao = new RemocaoServico(empresa.getServicos)
+                    remocao.remover()
                     break;
                 case 0:
                     execucao = false
