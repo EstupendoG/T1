@@ -2,6 +2,8 @@ import Entrada from "../io/entrada";
 import Empresa from "../modelo/empresa";
 import CadastroCliente from "../negocio/cliente/cadastroCliente";
 import ListagemClientes from "../negocio/cliente/listagemClientes";
+import AtualizacaoCliente from "../negocio/cliente/atualizacaoProduto";
+import RemocaoCliente from "../negocio/cliente/remocaoCliente";
 
 export default class mainCliente {
     public options(){
@@ -30,6 +32,14 @@ export default class mainCliente {
                 case 2:
                     let listagemCliente = new ListagemClientes(empresa.getClientes)
                     listagemCliente.listar()
+                    break;
+                case 3:
+                    let atualizacao = new AtualizacaoCliente(empresa.getClientes)
+                    atualizacao.atualizar()
+                    break;
+                case 4:
+                    let remocao = new RemocaoCliente(empresa.getClientes)
+                    remocao.remover()
                     break;
                 case 0:
                     execucao = false

@@ -12,7 +12,7 @@ export default class RemocaoProduto extends Remocao{
     }
 
     public remover(): void {
-        console.log(`\n🗑️ Remoção de Serviço`);
+        console.log(`\n🗑️- Remoção de Produto`);
         console.log(`--------------------------------------`);  
 
         if(this.produtos.length === 0){
@@ -50,7 +50,7 @@ export default class RemocaoProduto extends Remocao{
             }
         }
         
-        console.log(`✅ Serviço ${id} removido!`)
+        console.log(`✅ Produto ${id} removido!`)
 
     }
 }

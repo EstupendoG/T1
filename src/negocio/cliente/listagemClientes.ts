@@ -10,6 +10,13 @@ export default class ListagemClientes extends Listagem {
     public listar(): void {
         console.log(`\n📋 Lista de todos os clientes:`);
         console.log(`--------------------------------------`);
+        
+        if(this.clientes.length === 0){
+            console.log("\n❌ Não há clientes a serem listados!")
+            console.log("⏳ Retornando...")
+            return
+        }
+
         this.clientes.forEach(cliente => {
             console.log(`👤 Nome: ` + cliente.getNome);
             console.log(`👤 Nome social: ` + cliente.getNomeSocial);

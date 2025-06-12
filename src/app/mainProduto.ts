@@ -2,6 +2,8 @@ import Entrada from "../io/entrada";
 import Empresa from "../modelo/empresa";
 import CadastroProduto from "../negocio/produto/cadastroProduto";
 import ListagemProduto from "../negocio/produto/listagemProduto";
+import AtualizacaoProduto from "../negocio/produto/atualizacaoProduto";
+import RemocaoProduto from "../negocio/produto/remocaoProduto";
 
 export default class mainProduto {
     public options(){
@@ -24,12 +26,20 @@ export default class mainProduto {
 
             switch (opcao) {
                 case 1:
-                    let cadastroProduto = new CadastroProduto(empresa.getProdutos)
-                    cadastroProduto.cadastrar()
+                    let cadastro = new CadastroProduto(empresa.getProdutos)
+                    cadastro.cadastrar()
                     break;
                 case 2:
-                    let listagemProduto = new ListagemProduto(empresa.getProdutos)
-                    listagemProduto.listar()
+                    let listagem = new ListagemProduto(empresa.getProdutos)
+                    listagem.listar()
+                    break;
+                case 3:
+                    let atualizacao = new AtualizacaoProduto(empresa.getProdutos)
+                    atualizacao.atualizar()
+                    break;
+                case 4:
+                    let remocao = new RemocaoProduto(empresa.getProdutos)
+                    remocao.remover()
                     break;
                 case 0:
                     execucao = false

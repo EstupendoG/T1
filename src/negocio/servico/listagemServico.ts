@@ -21,6 +21,7 @@ export default class ListagemServicos extends Listagem{
         this.servicos.forEach(servico => {
             console.log(`🛠️ ID: ${servico.getId}`)
             console.log(`🛠️ Nome: ${servico.getNome}`)
+            console.log(`🛠️ Valor: ${servico.getValor}`)
             console.log(`--------------------------------------`);
         });
     }

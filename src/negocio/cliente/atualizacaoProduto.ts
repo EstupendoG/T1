@@ -25,7 +25,7 @@ export default class AtualizacaoCliente extends Atualizacao{
         let cliente: Cliente | undefined
 
         let cpf = this.entrada.receberTexto("✎  Por favor informe o CPF do cliente a ser atualizado: ")
-        let listaCpfs = this.clientes.map((x) => x.getCpf.getValor())
+        let listaCpfs = this.clientes.map((x) => x.getCpf.getValor)
 
         if(!listaCpfs.includes(cpf)){
             console.log("❌ Nenhum cliente foi atribuído a esse CPF")
@@ -37,10 +37,16 @@ export default class AtualizacaoCliente extends Atualizacao{
             x.getCpf.getValor === cpf && (cliente = x)
         }
                 
+        console.log('\nℹ️ Deixe o campo vazio caso você não queira atualizar seu valor!')
         let nome = this.entrada.receberTexto('✎  Informe o novo nome do cliente: ')
+        let nomeSocial = this.entrada.receberTexto('✎  Informe o novo nome social do cliente: ')
         
         console.log(`⏳ Atualizando cliente... ${cpf}`)
-        cliente?.setNome(nome)
+
+        if(cliente){
+            nome && (cliente.setNome = nome)
+            nomeSocial && (cliente.setNomeSocial = nomeSocial)
+        }
 
         console.log(`✅ Cliente ${cpf} atualizado!`)
     }

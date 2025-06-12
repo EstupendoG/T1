@@ -38,9 +38,11 @@ export default class AtualizacaoServico extends Atualizacao{
         }
                 
         let nome = this.entrada.receberTexto('✎  Informe o novo nome do serviço: ')
+        let valor = this.entrada.receberNumero('✎  Informe o novo preço do serviço: R$')
         
-        console.log(`⏳ Atualizando serviço... ${id}`)
+        console.log(`⏳ Atualizando serviço...`)
         servico?.setNome(nome)
+        servico?.setValor(valor)
 
         console.log(`✅ Serviço ${id} atualizado!`)
     }

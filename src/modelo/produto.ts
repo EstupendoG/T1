@@ -1,20 +1,30 @@
 export default class Produto {
     public id!: number
     public nome!: string
-    constructor( id:number , nome:string){
-        this.nome = nome
+    public valor!: number
+    constructor( id:number , nome:string , valor:number){
         this.id = id
-    }
-
-    get getNome(){
-        return this.nome
+        this.nome = nome
+        this.valor = valor
     }
 
     get getId(){
         return this.id
     }
 
+    get getNome(){
+        return this.nome
+    }
+
+    get getValor(){
+        return this.valor
+    }
+
     setNome(nome:string){
         this.nome = nome
+    }
+
+    setValor(valor:number){
+        this.valor = valor
     }
 }
