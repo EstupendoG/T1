@@ -2,14 +2,18 @@ import Entrada from "../io/entrada";
 import Empresa from "../modelo/empresa";
 import CadastroCliente from "../negocio/cliente/cadastroCliente";
 import ListagemClientes from "../negocio/cliente/listagemClientes";
-import AtualizacaoCliente from "../negocio/cliente/atualizacaoProduto";
+import AtualizacaoCliente from "../negocio/cliente/atualizacaoCliente";
 import RemocaoCliente from "../negocio/cliente/remocaoCliente";
 
 export default class mainCliente {
+    private empresa: Empresa
+    constructor(empresa: Empresa){
+        this.empresa = empresa
+    }
+    
     public options(){
-        let empresa = new Empresa()
         let execucao = true
-
+        
         while (execucao) {
             console.log(`\n👤 CLIENTES`)
             console.log(`☰ Opções:`);
@@ -19,26 +23,26 @@ export default class mainCliente {
             console.log(`3 - Atualizar cliente`);
             console.log(`4 - Remover cliente`);
             console.log(`0 - Retornar`);
+            console.log('')
 
             let entrada = new Entrada()
-            console.log('')
             let opcao = entrada.receberNumero(`✎  Por favor, escolha uma opção: `)
 
             switch (opcao) {
                 case 1:
-                    let cadastroCliente = new CadastroCliente(empresa.getClientes)
+                    let cadastroCliente = new CadastroCliente(this.empresa.getClientes)
                     cadastroCliente.cadastrar()
                     break;
                 case 2:
-                    let listagemCliente = new ListagemClientes(empresa.getClientes)
+                    let listagemCliente = new ListagemClientes(this.empresa.getClientes)
                     listagemCliente.listar()
                     break;
                 case 3:
-                    let atualizacao = new AtualizacaoCliente(empresa.getClientes)
+                    let atualizacao = new AtualizacaoCliente(this.empresa.getClientes)
                     atualizacao.atualizar()
                     break;
                 case 4:
-                    let remocao = new RemocaoCliente(empresa.getClientes)
+                    let remocao = new RemocaoCliente(this.empresa.getClientes)
                     remocao.remover()
                     break;
                 case 0:

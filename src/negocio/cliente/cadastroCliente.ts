@@ -5,9 +5,6 @@ import RG from "../../modelo/rg"
 import Telefone from "../../modelo/telefone"
 import Cadastro from "../cadastro"
 
-// TODO
-// Cadastro de data do cadastro
-
 export default class CadastroCliente extends Cadastro {
     private clientes: Array<Cliente>
     private entrada: Entrada
@@ -22,21 +19,19 @@ export default class CadastroCliente extends Cadastro {
         let nomeSocial = this.entrada.receberTexto(`✎ Por favor informe o nome social do cliente: `)
         
         // Cadastro do CPF
-        let valor = this.entrada.receberTexto(`✎  Por favor informe o número do cpf: `);
-        let cpfsArray = this.clientes.map((x) => x.getCpf.getValor)
+        let valor = this.entrada.receberTexto(`✎ Por favor informe o número do cpf: `);
 
+        let cpfsArray = this.clientes.map((x) => x.getCpf.getValor)
         while(cpfsArray.includes(valor)){
             console.log(`⚠️ Esse cpf já está cadastrado!`)
             valor = this.entrada.receberTexto('⚠️ Informe outro número de cpf: ')
         }
 
-        let data = this.entrada.receberTexto(`✎ Por favor informe a data de emissão do cpf, no padrão dd/mm/yyyy: `);
-        let partesData = data.split('/')
-        let ano = new Number(partesData[2].valueOf()).valueOf()
-        let mes = new Number(partesData[1].valueOf()).valueOf()
-        let dia = new Number(partesData[0].valueOf()).valueOf()
-        let dataEmissao = new Date(ano, mes, dia)
-        let cpf = new CPF(valor, dataEmissao);
+        let data = this.entrada.receberData(`✎ Por favor informe a data de emissão do cpf, no padrão dd/mm/yyyy: `);
+        if (!data){
+            return
+        }
+        let cpf = new CPF(valor, data);
 
         // Cadastro dos RG's
         let rgCount = this.entrada.receberNumero("✎ Por favor, informe quantos RG's você quer cadastrar: ")
@@ -47,14 +42,12 @@ export default class CadastroCliente extends Cadastro {
         else{
             for(let i = 1 ; i <= rgCount ; i++){
                 console.log(`\n Cadastro do ${i}º RG`)
-                let valor = this.entrada.receberTexto('✎  Informe o número do rg: ')
-                let data = this.entrada.receberTexto(`✎  Informe a data de emissão do rg, no padrão dd/mm/yyyy: `);
-                let partesData = data.split('/')
-                let ano = new Number(partesData[2].valueOf()).valueOf()
-                let mes = new Number(partesData[1].valueOf()).valueOf()
-                let dia = new Number(partesData[0].valueOf()).valueOf()
-                let dataEmissao = new Date(ano, mes, dia)
-                let rg = new RG(valor, dataEmissao)
+                let valor = this.entrada.receberTexto('✎ Informe o número do rg: ')
+                let data = this.entrada.receberData(`✎ Informe a data de emissão do rg, no padrão dd/mm/yyyy: `);
+                if(!data){
+                    return
+                }
+                let rg = new RG(valor, data)
 
                 rgArray.push(rg)
                 
@@ -62,7 +55,7 @@ export default class CadastroCliente extends Cadastro {
         }
 
         // Cadastro de Telefones
-        let phoneCount = this.entrada.receberNumero("✎ Por favor, informe quantos Telefones você quer cadastrar: ")
+        let phoneCount = this.entrada.receberNumero("\n✎ Por favor, informe quantos Telefones você quer cadastrar: ")
         let phoneArray = []
         if(phoneCount <= 0){
             console.log('⏳ Prosseguindo...')

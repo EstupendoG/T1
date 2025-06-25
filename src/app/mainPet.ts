@@ -1,11 +1,11 @@
 import Entrada from "../io/entrada";
 import Empresa from "../modelo/empresa";
-import CadastroServico from "../negocio/servico/cadastroServico";
-import ListagemServicos from "../negocio/servico/listagemServico";
-import AtualizacaoServico from "../negocio/servico/atualizacaoServicos";
-import RemocaoServico from "../negocio/servico/remocaoServico";
+import CadastroPet from "../negocio/pet/cadastroPet";
+import ListagemPet from "../negocio/pet/listagemPet";
+import AtualizacaoPet from "../negocio/pet/atualizacaoPet";
+import RemocaoPet from "../negocio/pet/remocaoPet";
 
-export default class mainServico {
+export default class mainPet {
     private empresa: Empresa
     constructor(empresa: Empresa){
         this.empresa = empresa
@@ -13,15 +13,15 @@ export default class mainServico {
 
     public options(){
         let execucao = true
-
+        
         while (execucao) {
-            console.log(`\n🛠️ SERVIÇOS`)
+            console.log(`\n🐱 PETS`)
             console.log(`☰ Opções:`);
             console.log(`--------------------------------------`);
-            console.log(`1 - Cadastrar serviço`);
-            console.log(`2 - Listar todos os serviços`);
-            console.log(`3 - Atualizar serviços`);
-            console.log(`4 - Remover serviços`);
+            console.log(`1 - Cadastrar pet`);
+            console.log(`2 - Listar todos os pets`);
+            console.log(`3 - Atualizar pet`);
+            console.log(`4 - Remover pet`);
             console.log(`0 - Retornar`);
             console.log('')
 
@@ -30,19 +30,19 @@ export default class mainServico {
 
             switch (opcao) {
                 case 1:
-                    let cadastro = new CadastroServico(this.empresa.getServicos)
+                    let cadastro = new CadastroPet(this.empresa.getClientes)
                     cadastro.cadastrar()
                     break;
                 case 2:
-                    let listagem = new ListagemServicos(this.empresa.getServicos)
+                    let listagem = new ListagemPet(this.empresa.getClientes)
                     listagem.listar()
                     break;
                 case 3:
-                    let atualizacao = new AtualizacaoServico(this.empresa.getServicos)
+                    let atualizacao = new AtualizacaoPet(this.empresa.getClientes)
                     atualizacao.atualizar()
                     break;
                 case 4:
-                    let remocao = new RemocaoServico(this.empresa.getServicos)
+                    let remocao = new RemocaoPet(this.empresa.getClientes)
                     remocao.remover()
                     break;
                 case 0:
@@ -54,4 +54,5 @@ export default class mainServico {
             }
         }
     }
+
 }

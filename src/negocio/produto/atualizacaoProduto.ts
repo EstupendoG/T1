@@ -6,9 +6,9 @@ export default class AtualizacaoProduto extends Atualizacao{
     private produto: Array<Produto>
     private entrada: Entrada
 
-    constructor(servicos:Array<Produto>){
+    constructor(produtos:Array<Produto>){
         super()
-        this.produto = servicos
+        this.produto = produtos
         this.entrada = new Entrada()
     }
 
@@ -22,27 +22,28 @@ export default class AtualizacaoProduto extends Atualizacao{
             return
         }
 
-        let servico: Produto | undefined
+        let produto: Produto | undefined
 
         let id = this.entrada.receberNumero("✎  Por favor informe o id do produto a ser atualizado: ")
         let listaIds = this.produto.map((x) => x.getId)
-
+        
         if(!listaIds.includes(id)){
             console.log("❌ Nenhum produto foi atribuído a esse ID")
             console.log("⏳ Retornando...")
             return
         }
-
+        
         for(let x of this.produto){
-            x.getId === id && (servico = x)
+            x.getId === id && (produto = x)
         }
-                
+        
+        console.log('\nℹ️ Deixe o campo vazio caso você não queira atualizar seu valor!')
         let nome = this.entrada.receberTexto('✎  Informe o novo nome do produto: ')
         let valor = this.entrada.receberNumero('✎  Informe o novo preço do produto: R$')
         
         console.log(`⏳ Atualizando produto...`)
-        servico?.setNome(nome)
-        servico?.setValor(valor)
+        nome && produto?.setNome(nome)
+        valor && produto?.setValor(valor)
 
         console.log(`✅ Produto ${id} atualizado!`)
     }

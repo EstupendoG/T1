@@ -6,8 +6,12 @@ import AtualizacaoProduto from "../negocio/produto/atualizacaoProduto";
 import RemocaoProduto from "../negocio/produto/remocaoProduto";
 
 export default class mainProduto {
+    private empresa: Empresa
+    constructor(empresa: Empresa){
+        this.empresa = empresa
+    }
+
     public options(){
-        let empresa = new Empresa()
         let execucao = true
 
         while (execucao) {
@@ -19,26 +23,26 @@ export default class mainProduto {
             console.log(`3 - Atualizar produto`);
             console.log(`4 - Remover produto`);
             console.log(`0 - Retornar`);
+            console.log('')
 
             let entrada = new Entrada()
-            console.log('')
             let opcao = entrada.receberNumero(`✎  Por favor, escolha uma opção: `)
 
             switch (opcao) {
                 case 1:
-                    let cadastro = new CadastroProduto(empresa.getProdutos)
+                    let cadastro = new CadastroProduto(this.empresa.getProdutos)
                     cadastro.cadastrar()
                     break;
                 case 2:
-                    let listagem = new ListagemProduto(empresa.getProdutos)
+                    let listagem = new ListagemProduto(this.empresa.getProdutos)
                     listagem.listar()
                     break;
                 case 3:
-                    let atualizacao = new AtualizacaoProduto(empresa.getProdutos)
+                    let atualizacao = new AtualizacaoProduto(this.empresa.getProdutos)
                     atualizacao.atualizar()
                     break;
                 case 4:
-                    let remocao = new RemocaoProduto(empresa.getProdutos)
+                    let remocao = new RemocaoProduto(this.empresa.getProdutos)
                     remocao.remover()
                     break;
                 case 0:

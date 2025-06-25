@@ -19,7 +19,7 @@ export default class CadastroProduto extends Cadastro {
 
         let id = 1
         if(this.produtos.length > 0){
-            let maiorId = Math.max(...this.produtos.map((x) => x.id))
+            let maiorId = Math.max(...this.produtos.map((x) => x.getId))
             id = maiorId + 1
         }
 

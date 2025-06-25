@@ -91,4 +91,26 @@ export default class Cliente {
         this.servicosConsumidos = servicos
     }
 
+    public adicionarPet(pet: Pet){
+        this.pets.push(pet)
+    }
+
+    public removerPet(pet:Pet){
+        let i = this.pets.indexOf(pet)
+        this.pets.splice(i,1)
+    }
+
+    public atualizarPet(
+        pet: Pet,
+        nome:string|undefined,
+        tipo:string|undefined, 
+        raca:string|undefined, 
+        genero:string|undefined
+    ){
+        nome   && (pet.setNome = nome)
+        tipo   && (pet.setTipo = tipo)
+        raca   && (pet.setRaca = raca)
+        genero && (pet.setGenero = genero)
+    }
+
 }
