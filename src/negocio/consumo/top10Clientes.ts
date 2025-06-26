@@ -43,8 +43,8 @@ export default class Top10Clientes extends Listagem{
             const cliente = this.clientes.find(c => c.getCpf.getValor === cpf);
             if (cliente) {
                 console.log(`👤 ${cliente.getNome}`);
-                console.log(`👤CPF: ${cpf}`);
-                console.log(`👤Total consumido: ${total}`);
+                console.log(`👤 CPF: ${cpf}`);
+                console.log(`👤 Total consumido: ${total}`);
                 console.log(``);
             }
         }

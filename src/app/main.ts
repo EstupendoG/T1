@@ -96,13 +96,12 @@ function cadastroRapido() {
         const cliente = new Cliente(nome, nome, cpf, [], []);
         clientes.push(cliente);
     }
-
+    
     // --- Cadastro de pets (1 por cliente)
-    const petsNomes = ['Miel', 'Luna', 'Thor', 'Mel', 'Bob', 'Sushi', 'Banana', 'Max', 'Bidu', 'Milo'];
-    const petsTipos = [ 'Gato', 'Gato', 'Coelho', 'Cachorro', 'Papagaio', 'Gato', 'Hamster', 'Cachorro', 'Gato', 'Cobra']
-
-    const petsRacas = ['Siamês', 'Siamês', 'Persa', 'Poodle', 'SRD', 'Verde', 'Laranja', 'SRD', 'Poodle', 'Persa']
-    const petsGeneros = ['Fêmea', 'Fêmea', 'Macho', 'Fêmea', 'Macho', 'Fêmea', 'Fêmea', 'Fêmea', 'Macho', 'Macho'];
+    const petsNomes = ['Miel', 'Luna', 'Thor', 'Mel', 'Bob', 'Sushi', 'Banana', 'Max', 'Bidu', 'Aurora'];
+    const petsTipos = ['Gato', 'Gato', 'Cachorro', 'Cachorro', 'Papagaio', 'Cachorro', 'Hamster', 'Cachorro', 'Cachorro', 'Peixe'];
+    const petsRacas = ['Siamês', 'Siamês', 'SRD', 'Poodle', 'Verde', 'SRD', 'Sírio', 'SRD', 'SRD', 'Betta'];
+    const petsGeneros = ['Fêmea', 'Fêmea', 'Macho', 'Fêmea', 'Macho', 'Fêmea', 'Fêmea', 'Macho', 'Macho', 'Fêmea'];
 
     for (let i = 0; i < clientes.length; i++) {
         const pet = new Pet(i + 1, petsNomes[i], petsTipos[i], petsRacas[i], petsGeneros[i]);
@@ -114,7 +113,8 @@ function cadastroRapido() {
         new Produto(1, "Ração Premium", 89.90),
         new Produto(2, "Biscoito Canino", 14.50),
         new Produto(3, "Shampoo Pet", 25.00),
-        new Produto(4, "Areia Higiênica", 30.00)
+        new Produto(4, "Areia Higiênica", 30.00),
+        new Produto(5, "Brinquedo Mordedor", 22.90),
     ];
     produtos.push(...produtosPadroes);
 
@@ -123,40 +123,41 @@ function cadastroRapido() {
         new Servico(1, "Banho e Tosa", 60.00),
         new Servico(2, "Consulta Veterinária", 120.00),
         new Servico(3, "Vacinação", 90.00),
-        new Servico(4, "Hospedagem Diária", 150.00)
+        new Servico(4, "Hospedagem Diária", 150.00),
+        new Servico(5, "Adestramento", 200.00),
     ];
     servicos.push(...servicosPadroes);
 
-    // --- Cadastro de consumos
+    // --- Cadastro de consumos (vários por pet)
     const quantidadeAleatoria = () => Math.floor(Math.random() * 3) + 1; // 1 a 3
 
     for (const cliente of clientes) {
         for (const pet of cliente.getPets) {
-            // Produto aleatório
-            const produto = produtos[Math.floor(Math.random() * produtos.length)];
-            const consumoProdutoExistente = consumos.find(x =>
-                x.getPet === pet.getId && x.getProduto === produto.getId
-            );
+            for (let i = 0; i < 3; i++) { // cada pet terá 3 produtos e 3 serviços consumidos
+                const produto = produtos[Math.floor(Math.random() * produtos.length)];
+                const servico = servicos[Math.floor(Math.random() * servicos.length)];
 
-            if (consumoProdutoExistente) {
-                consumoProdutoExistente.adicionarQuantidade(quantidadeAleatoria());
-            } else {
-                consumos.push(new Consumo(cliente.getCpf, pet.getId, quantidadeAleatoria(), produto.getId, undefined));
-            }
+                const consumoProdutoExistente = consumos.find(x =>
+                    x.getPet === pet.getId && x.getProduto === produto.getId
+                );
+                if (consumoProdutoExistente) {
+                    consumoProdutoExistente.adicionarQuantidade(quantidadeAleatoria());
+                } else {
+                    consumos.push(new Consumo(cliente.getCpf, pet.getId, quantidadeAleatoria(), produto.getId, undefined));
+                }
 
-            // Serviço aleatório
-            const servico = servicos[Math.floor(Math.random() * servicos.length)];
-            const consumoServicoExistente = consumos.find(x =>
-                x.getPet === pet.getId && x.getServico === servico.getId
-            );
-
-            if (consumoServicoExistente) {
-                consumoServicoExistente.adicionarQuantidade(quantidadeAleatoria());
-            } else {
-                consumos.push(new Consumo(cliente.getCpf, pet.getId, quantidadeAleatoria(), undefined, servico.getId));
+                const consumoServicoExistente = consumos.find(x =>
+                    x.getPet === pet.getId && x.getServico === servico.getId
+                );
+                if (consumoServicoExistente) {
+                    consumoServicoExistente.adicionarQuantidade(quantidadeAleatoria());
+                } else {
+                    consumos.push(new Consumo(cliente.getCpf, pet.getId, quantidadeAleatoria(), undefined, servico.getId));
+                }
             }
         }
     }
+
 
     console.log("✅ Cadastro rápido de clientes, pets, produtos, serviços e consumos concluído!");
 }

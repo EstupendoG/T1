@@ -34,8 +34,6 @@ export default class CadastroConsumo extends Cadastro{
         console.log(`\n📝 Início do cadastro de consumo de pets`);
 
         if(pets.length === 0){
-            console.log("❌ Não há pets cadastrados!")
-            console.log("⏳ Retornando...")
             return
         }
 

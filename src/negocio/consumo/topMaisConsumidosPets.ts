@@ -1,5 +1,6 @@
 import Listagem from "../listagem";
 import Empresa from "../../modelo/empresa";
+import Entrada from "../../io/entrada";
 import Pet from "../../modelo/pet";
 import Consumo from "../../modelo/consumo";
 import Produto from "../../modelo/produto";
@@ -30,98 +31,136 @@ export default class TopMaisConsumidosPets extends Listagem{
             return
         }
 
-        // Pegando todas as raças
-        let racas: string[] = []
-        this.clientes.forEach((c) =>{
-            for(let pet of c.getPets){
-                let raca = pet.getRaca
-                if(!racas.includes(raca)){
-                    racas.push(raca)
-                }
-            }
-        })
-
-        // Pegando todos os tipos
-        let tipos: string[] = []
-        this.clientes.forEach((c) =>{
-            for(let pet of c.getPets){
-                let tipo = pet.getTipo
-                if(!tipos.includes(tipo)){
-                    tipos.push(tipo)
-                }
-            }
-        })
-
-        racas.forEach((raca) => {
-            // Produtos
-            console.log(`\n📋 Lista dos produtos mais consumidos pela raça ${raca}: `)
+        let execucao = true
+        while (execucao) {
+            console.log(`☰ Opções:`);
             console.log(`--------------------------------------`);
+            console.log(`1 - Listar por tipo de pet`);
+            console.log(`2 - Listar por raça de pet`);
+            console.log(`0 - Retornar`);
+            console.log('')
 
-            const petsDessaRaca = this.
+            let entrada = new Entrada()
+            let opcao = entrada.receberNumero(`✎  Por favor, escolha uma opção: `)
 
-        })  
-        
-        
-        if(!this.consumos.find((consumo) => consumo.getProduto)){
-            console.log("\n❌ Nenhum consumo de produto foi registrado!")
-            console.log("⏳ Prosseguindo...")
-        }
-        
-        else{
-            const produtoIds: { [id: number]: number} = {}
-            for(let consumo of this.consumos){
-                let id = consumo.getProduto
-                if(!produtoIds[id!]){
-                    produtoIds[id!] = 0
-                }
-                produtoIds[id!] += consumo.getQuantidade
+            switch (opcao) {
+                // TIPO
+                case 1:
+                    // Pegando todos os tipos
+                    let tipos: string[] = []
+                    this.clientes.forEach((c) =>{
+                        for(let pet of c.getPets){
+                            let tipo = pet.getTipo
+                            if(!tipos.includes(tipo)){
+                                tipos.push(tipo)
+                            }
+                        }
+                    })
+                    // Para cada tipo:
+                    tipos.forEach((tipo) => {
+                        const petsDesseTipo = this.clientes.flatMap((cliente) => 
+                            cliente.getPets
+                            .filter(pet => pet.getTipo === tipo) 
+                            .map(pet => pet.getId)               
+                        )
+                        console.log(`\n🐱 Tipo: ${tipo}`)
+                        console.log(`--------------------------------------`);
+                        // Produtos
+                        console.log(`📋 Lista dos produtos mais consumidos pelos pets ${tipo}: `)
+                        this.listarMaisConsumidos(petsDesseTipo , 'produto')
+                        // Serviços
+                        console.log(`📋 Lista dos serviços mais consumidos pelos pets ${tipo}: `)
+                        this.listarMaisConsumidos(petsDesseTipo , 'servico')
+                    })  
+                    execucao = false
+                    break;
+
+
+                // RAÇA
+                case 2:
+                    // Pegando todas as raças
+                    let racas: string[] = []
+                    this.clientes.forEach((c) =>{
+                        for(let pet of c.getPets){
+                            let raca = pet.getRaca
+                            if(!racas.includes(raca)){
+                                racas.push(raca)
+                            }
+                        }
+                    })
+                    // Para cada raça:
+                    racas.forEach((raca) => {
+                        const petsDessaRaca = this.clientes.flatMap((cliente) => 
+                            cliente.getPets
+                            .filter(pet => pet.getRaca === raca) 
+                            .map(pet => pet.getId)               
+                        )
+                        console.log(`\n🐱 Raça: ${raca}`)
+                        console.log(`--------------------------------------`);
+                        // Produtos
+                        console.log(`📋 Lista dos produtos mais consumidos pela raça ${raca}: `)
+                        this.listarMaisConsumidos(petsDessaRaca , 'produto')
+                        // Serviços
+                        console.log(`📋 Lista dos serviços mais consumidos pela raça ${raca}: `)
+                        this.listarMaisConsumidos(petsDessaRaca , 'servico')
+                    })  
+
+
+                    execucao = false
+                    break;
+
+                case 0:
+                    execucao = false
+                    console.log(`⏳ Retornando...`)
+                    break;
+
+                default:
+                    console.log(`⚠️ Operação não entendida :( \n`)
             }
-            let rank = Object.entries(produtoIds)
+        }
+
+        
+
+    }
+
+    public listarMaisConsumidos(petIds:number[] , tipo:'produto'|'servico'){
+        const consumidos = this.consumos.filter((consumo) =>
+            petIds.includes(consumo.getPet) && (
+                tipo === 'produto' 
+                ? consumo.getProduto !== undefined 
+                : consumo.getServico !== undefined
+            ))
+            
+            const consumidosIds: { [id: number]: number} = {}
+            for(let consumo of consumidos){
+                let id = tipo === 'produto' ? consumo.getProduto : consumo.getServico
+                if(!consumidosIds[id!]){
+                    consumidosIds[id!] = 0
+                }
+                consumidosIds[id!] += consumo.getQuantidade
+            }
+
+            let rank = Object.entries(consumidosIds)
                 .sort((a,b) => b[1] - a[1])
     
             for (let [id, total] of rank) {
-                const produto = this.produtos.find((p) => p.getId === Number(id))
-                if(produto) {
-                    console.log(`📦 ${produto.getNome}`);
-                    console.log(`📦 ID: ${produto.getId}`);
-                    console.log(`📦 Total consumido: ${total}`);
-                    console.log(``);
-                }
-            }
-        }
+                const item = (
+                    tipo === 'produto'
+                    ? this.produtos.find((p) => p.getId === Number(id)) 
+                    : this.servicos.find((s) => s.getId === Number(id)) 
+                )
 
-        // Serviços
-        console.log('\n📋 Lista dos produtos mais consumidos: ')
-        console.log(`--------------------------------------`);
-        if(!this.consumos.find((consumo) => consumo.getServico)){
-            console.log("\n❌ Nenhum consumo de serviço foi registrado!")
-            console.log("⏳ Retornando...")
-            return
-        }
-        
-        else{
-            const servicosIds: { [id: number]: number} = {}
-            for(let consumo of this.consumos){
-                let id = consumo.getServico
-                if(!servicosIds[id!]){
-                    servicosIds[id!] = 0
-                }
-                servicosIds[id!] += consumo.getQuantidade
-            }
-            let rank = Object.entries(servicosIds)
-                .sort((a,b) => b[1] - a[1])
-    
-            for (let [id, total] of rank) {
-                const servico = this.servicos.find((s) => s.getId === Number(id))
-                if(servico) {
-                    console.log(`🛠️  ${servico.getNome}`);
-                    console.log(`🛠️  ID: ${servico.getId}`);
-                    console.log(`🛠️  Total consumido: ${total}`);
+                if(item) {
+                    console.log(`${tipo === 'produto' ? '📦 Produto' : '🛠️  Serviço'}: ${item.getNome}`);
+                    console.log(`${tipo === 'produto' ? '📦' : '🛠️ '} ID: ${item.getId}`);
+                    console.log(`${tipo === 'produto' ? '📦' : '🛠️ '} Total consumido: ${total}`);
                     console.log(``);
                 }
+                else{     
+                    console.log("❌ Nenhum cadastro encontrado aqui!")
+                    console.log("⏳ Retornando...")
+                }
             }
-        }
-        
         
     }
 

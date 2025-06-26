@@ -3,6 +3,7 @@ import Empresa from "../modelo/empresa";
 import CadastroConsumo from "../negocio/consumo/cadastroConsumo";
 import Top10Clientes from "../negocio/consumo/top10Clientes";
 import TopMaisConsumidos from "../negocio/consumo/topMaisConsumidos";
+import TopMaisConsumidosPets from "../negocio/consumo/topMaisConsumidosPets";
 import Top5Clientes from "../negocio/consumo/top5Clientes";
 
 export default class mainConsumo {
@@ -13,14 +14,14 @@ export default class mainConsumo {
     
     public options(){
         let execucao = true
-        
         while (execucao) {
-            console.log(`\n👤 CLIENTES`)
+            console.log(`\n🛒 CONSUMOS`)
             console.log(`☰ Opções:`);
             console.log(`--------------------------------------`);
             console.log(`1 - Cadastrar consumo`);
             console.log(`2 - Listar os 10 Clientes que mais consumiram`);
             console.log(`3 - Listar os Produtos e Serviços mais consumidos`);
+            console.log(`4 - Listar os Produtos e Serviços mais consumidos por tipo e raça de pet`);
             console.log(`5 - Listar os 5 Clientes que mais gastaram`);
             console.log(`0 - Retornar`);
             console.log('')
@@ -41,10 +42,10 @@ export default class mainConsumo {
                     let listagem2 = new TopMaisConsumidos(this.empresa)
                     listagem2.listar()
                     break;
-                // case 4:
-                //     let remocao = new RemocaoCliente(this.empresa.getClientes)
-                //     remocao.remover()
-                //     break;
+                case 4:
+                    let listagem3 = new TopMaisConsumidosPets(this.empresa)
+                    listagem3.listar()
+                    break;
                 case 5:
                     let listagem4 = new Top5Clientes(this.empresa)
                     listagem4.listar()
